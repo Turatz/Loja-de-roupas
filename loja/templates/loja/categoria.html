@@ -2,12 +2,12 @@
 {% load static %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/categoria.css' %}">
 {% endblock %}
 
 {% block content %}
 
-<h2 class="section-title">Produtos em destaque</h2>
+<h2 class="section-title">{{ categoria }}</h2>
 
 {% if produtos %}
     <div class="products">
@@ -23,7 +23,7 @@
         {% endfor %}
     </div>
 {% else %}
-    <p class="sem-produtos">Nenhum produto em destaque no momento.</p>
+    <p class="sem-produtos">Nenhum produto encontrado nessa categoria.</p>
 {% endif %}
 
 {% endblock %}

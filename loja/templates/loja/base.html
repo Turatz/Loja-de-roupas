@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nicolas Gaymer</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block extra_css %}
+    {% endblock %}
 </head>
 <body>
 
@@ -15,8 +17,24 @@
             <span>moda masculina</span>
         </div>
         <div class="nav-auth">
-            <a href="#">Entrar</a>
-            <a href="#">Cadastrar</a>
+            {% if user.is_authenticated %}
+                <div class="user-menu">
+                    <div class="user-avatar" onclick="toggleMenu()">
+                        {{ user.username|first|upper }}
+                    </div>
+                    <div class="user-dropdown" id="userDropdown">
+                        <p class="user-name">{{ user.username }}</p>
+                        <hr>
+                        <a href="#">Minha conta</a>
+                        <a href="#">Meus pedidos</a>
+                        <hr>
+                        <a href="{% url 'logout' %}">Sair</a>
+                    </div>
+                </div>
+            {% else %}
+                <a href="{% url 'login' %}">Entrar</a>
+                <a href="{% url 'cadastro' %}">Cadastrar</a>
+            {% endif %}
         </div>
     </nav>
 
@@ -24,11 +42,11 @@
         <aside class="sidebar">
             <h3>Categorias</h3>
             <ul>
-                <li><a href="#">Todos</a></li>
-                <li><a href="#">Camisas</a></li>
-                <li><a href="#">Calças</a></li>
-                <li><a href="#">Casacos</a></li>
-                <li><a href="#">Promoções</a></li>
+                <li><a href="{% url 'index' %}">Todos</a></li>
+                <li><a href="{% url 'categoria' 'Camisas' %}">Camisas</a></li>
+                <li><a href="{% url 'categoria' 'Calcas' %}">Calças</a></li>
+                <li><a href="{% url 'categoria' 'Casacos' %}">Casacos</a></li>
+                <li><a href="{% url 'categoria' 'Promoções' %}">Promoções</a></li>
             </ul>
         </aside>
 
@@ -37,6 +55,28 @@
             {% endblock %}
         </main>
     </div>
+
+    <footer class="footer">
+        <p>© 2025 Nicolas Gaymer — Moda Masculina</p>
+        <div class="footer-links">
+            <a href="https://instagram.com/seuperfil" target="_blank">Instagram</a>
+            <a href="https://wa.me/55SEUNUMERO" target="_blank">WhatsApp</a>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        document.addEventListener('click', function(e) {
+            const menu = document.querySelector('.user-menu');
+            if (menu && !menu.contains(e.target)) {
+                document.getElementById('userDropdown').classList.remove('active');
+            }
+        });
+    </script>
 
 </body>
 </html>
