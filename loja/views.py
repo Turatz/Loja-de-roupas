@@ -1,3 +1,6 @@
 from django.shortcuts import render
+from .models import Produto
 
-# Create your views here.
+def index(request):
+    produtos = Produto.objects.filter(destaque=True)
+    return render(request, 'loja/index.html', {'produtos': produtos})

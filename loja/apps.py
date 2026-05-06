@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
-
-class LojaTempConfig(AppConfig):
-    name = 'loja_temp'
+class LojaConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'loja'  

@@ -1,0 +1,20 @@
+{% extends 'loja/base.html' %}
+
+{% block content %}
+<h1>Hellow</h1>
+<!-- Produtos em destaque -->
+<h2 class="section-title">Produtos em destaque</h2>
+<div class="products">
+    {% for produto in produtos %}
+    <div class="product-card">
+        <div class="product-img">
+            <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}">
+        </div>
+        <p class="product-name">{{ produto.nome }}</p>
+        <p class="product-price">R$ {{ produto.preco }}</p>
+        <button class="product-btn">Adicionar</button>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
